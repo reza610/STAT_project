@@ -14,16 +14,27 @@ to get the dates to work for the CPI data, I had to install the zoo library for 
 ```{r pressure, echo=FALSE, warning=FALSE}
 library(tidyverse)
 library(zoo)
+library(dslabs)
+library(caret)
+library(stringr)
 library(ggplot2)
+library(lubridate)
 CPI_data <- read.csv("CPI_data.csv")
-#Covid_data <- read.csv("")
+Covid_data <- read.csv("trends_in_covid19_cases_and_deaths_in_the_us_reported_to_cdc_by_population_factors.csv")
 
+```
+
+```{r}
+Clean_Covid_Data <- Covid_data %>% filter(Classification == "Metro_Rural") %>% filter(Category == 1)
+Clean_Covid_Data <- Clean_Covid_Data %>% mutate(Date = as.Date(Clean_Covid_Data$Date, format = "%m/%d/%Y"))
+
+CPI_data <- CPI_data %>%  mutate(Date = as.Date(as.yearmon(CPI_data$Date, format = '%Y-%B')))
 ```
 
 
 ```{r}
-CPI_data <- CPI_data %>%  mutate(Date = as.Date(as.yearmon(CPI_data$Date, format = '%Y-%B')))
-head(CPI_data)
-CPI_data %>% ggplot(aes(Date, Eggs)) + geom_line()
+CPI_data %>% ggplot(aes(Date, Bread)) + geom_line()
+
+Clean_Covid_Data  %>% ggplot(aes(Date, X14.Day.Avg.New.Cases.per.100K)) + geom_line()
 ```
 
