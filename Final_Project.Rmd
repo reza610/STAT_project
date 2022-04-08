@@ -19,6 +19,7 @@ library(caret)
 library(stringr)
 library(ggplot2)
 library(dplyr)
+library(tibble)
 CPI_data <- read.csv("CPI_data.csv")
 Covid_data <- read.csv("trends_in_covid19_cases_and_deaths_in_the_us_reported_to_cdc_by_population_factors.csv")
 
@@ -43,7 +44,35 @@ Clean_Covid_Data  %>% ggplot(aes(Date, X7.Day.Avg.New.Cases.per.100K)) + geom_li
 
 
 ```{r}
+eggs <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Eggs, data = All_Data))
+bread <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Bread, data = All_Data))
+chicken <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Chicken, data = All_Data))
 
+gas <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Unleaded.regular.gasoline, data = All_Data))
+electricity <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Electricity, data = All_Data))
+natural_gas <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Utility..gas.service, data = All_Data))
+
+day_care <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Day.care.and.preschool, data = All_Data))
+college_tuition <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ College.tuition.and.fees, data = All_Data))
+educational_supplies <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Educational.books.and.supplies, data = All_Data))
+
+parking_fees <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Parking.fees.and.tolls, data = All_Data))
+motor_insurance <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Motor.vehicle.insurance, data = All_Data))
+airline_fares <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Airline.fares, data = All_Data))
+
+prescription_drugs <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Prescription.drugs, data = All_Data))
+nonprescription_drugs <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Nonprescription.drugs, data = All_Data))
+medical_supplies <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Medical.equipment.and.supplies, data = All_Data))
+
+music <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Recorded.music.and.music.subscriptions, data = All_Data))
+cable_tv <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Cable.and.satellite.television.service, data = All_Data))
+video_rentals <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Rental.of.video.discs.and.other.media, data = All_Data))
+books <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Recreational.books, data = All_Data))
+
+outdoor_equipment <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Outdoor.equipment.and.supplies, data = All_Data))
+indoor_plants <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Indoor.plants.and.flowers, data = All_Data))
+cleaning_supplies <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Household.cleaning.products, data = All_Data))
+rent <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Rent.of.primary.residence, data = All_Data))
 
 ```
 
