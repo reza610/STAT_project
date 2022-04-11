@@ -42,6 +42,7 @@ CPI_data %>% ggplot(aes(Date, Bread)) + geom_line()
 
 Clean_Covid_Data  %>% ggplot(aes(Date, X7.Day.Avg.New.Cases.per.100K)) + geom_line()
 
+All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Educational.books.and.supplies)) + geom_point()
 ```
 
 
