@@ -20,6 +20,7 @@ library(stringr)
 library(ggplot2)
 library(dplyr)
 library(tibble)
+library(lubridate)
 CPI_data <- read.csv("CPI_data.csv")
 Covid_data <- read.csv("trends_in_covid19_cases_and_deaths_in_the_us_reported_to_cdc_by_population_factors.csv")
 
@@ -32,17 +33,296 @@ Clean_Covid_Data <- Clean_Covid_Data %>% mutate(Date = as.Date(Clean_Covid_Data$
 
 CPI_data <- CPI_data %>%  mutate(Date = as.Date(as.yearmon(CPI_data$Date, format = '%Y-%B')))
 
+Clean_Covid_Data
+
 All_Data <- inner_join(CPI_data, Clean_Covid_Data)
+CPI_data
+nrow(CPI_data)
 
 ```
 
 
 ```{r}
 CPI_data %>% ggplot(aes(Date, Bread)) + geom_line()
-
+tail(Clean_Covid_Data)
 Clean_Covid_Data  %>% ggplot(aes(Date, X7.Day.Avg.New.Cases.per.100K)) + geom_line()
 
 All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Educational.books.and.supplies)) + geom_point()
+
+
+
+nrow(CPI_covid_data)
+CPI_covid_data
+Covid_data_endFeb
+#CPI_covid_data <- CPI_data %>% filter(Date > '2020-23-01')
+Covid_data_endFeb <- Clean_Covid_Data %>% filter(Date < '2022-02-26')
+#tail(Covid_data_endFeb)
+#tail(CPI_covid_data)
+
+
+CPI_covid_data
+Covid_data_endFeb
+
+months <- as_tibble(c())
+months['monthname'] <- NA
+months['monthcases'] <- NA
+
+months
+
+mymonths <-c("2020JAN", "2020FEB", "2020MAR", "2020APR", "2020MAY", "2020JUN", "2020JUL", "2020AUG", "2020SEP", "2020OCT", "2020NOV", "2020DEC", "2021JAN", "2021FEB", "2021MAR", "2021APR", "2021MAY", "2021JUN", "2021JUL", "2021AUG", "2021SEP", "2021OCT", "2021NOV", "2021DEC", "2022JAN", "2022FEB")
+
+for(i in 1:26){
+ months[i, ] <- NA
+}
+
+months
+
+for(i in 1:26){
+  months$monthname[i] <- mymonths[i]
+}
+
+
+covmonthly <- as_tibble(c())
+
+Covid_data_endFeb
+
+Covid_data_endFeb$newcases <- 0
+
+
+
+for(i in 2:767)
+{
+  Covid_data_endFeb$newcases[i] <- Covid_data_endFeb$Total.Cases.per.100K[i] - Covid_data_endFeb$Total.Cases.per.100K[i-1]
+}
+#create a new column which indicates new cases each day 
+
+Covid_data_endFeb
+
+```
+
+```{R}
+
+myvec <- c()
+
+
+myvec[1:26] <- 0
+
+
+v <- 3
+start <- 37 
+c1 <- 30
+c2 <- 31 
+
+for(i in 1:11){
+  sum <- 0 
+  if(i %% 2 != 0)
+  {
+    sum <- 0
+    for(j in (start:(start+c2))){
+      sum <- sum + Covid_data_endFeb$newcases[j]
+    }
+    avg <- sum / 31
+    myvec[v] <- avg
+    sum <- 0
+    avg <- 0
+    v <- v + 1
+    start <- start + c2
+  }
+  else
+  {
+    sum <- 0
+    for(k in (start:(start+c1))){
+      sum <- sum + Covid_data_endFeb$newcases[k]
+    }
+    avg <- sum / 30
+    myvec[v] <- avg
+    sum <- 0
+    avg <- 0
+    v <- v + 1
+    start <- start + c1
+  }
+}
+
+#covers indexes 1:13 Jan2020 - Jan 2021
+
+newsum <- 0
+
+for(i in (start:(start + 29))){
+  newsum <- newsum + Covid_data_endFeb$newcases[i]
+}
+newavg <- newsum / 29
+myvec[v] <- newavg
+newsum <- 0
+newavg <- 0 
+v <- v + 1
+start <- start + 29
+
+
+for(i in 1:11){
+  sum <- 0 
+  if(i %% 2 != 0)
+  {
+    sum <- 0
+    for(j in (start:(start+c2))){
+      sum <- sum + Covid_data_endFeb$newcases[j]
+    }
+    avg <- sum / 31
+    myvec[v] <- avg
+    sum <- 0
+    avg <- 0
+    v <- v + 1
+    start <- start + c2
+  }
+  else
+  {
+    sum <- 0
+    for(k in (start:(start+c1))){
+      sum <- sum + Covid_data_endFeb$newcases[k]
+    }
+    avg <- sum / 30
+    myvec[v] <- avg
+    sum <- 0
+    avg <- 0
+    v <- v + 1
+    start <- start + c1
+  }
+}
+
+
+for(i in (start:(start + 28))){
+  newsum <- newsum + Covid_data_endFeb$newcases[i]
+}
+newavg <- newsum / 28
+myvec[v] <- newavg
+newsum <- 0
+newavg <- 0 
+v <- v + 1
+start <- start + 28
+
+
+months
+
+
+for(i in 1:26){
+  months$monthcases[i] <- myvec[i]
+}  
+
+months
+```
+
+
+
+
+```{R}
+CPI_covid_data <- dplyr::add_row(
+  CPI_covid_data,
+  Date = "2020-July",
+  Bread = 190.894,
+  Chicken = 1,
+  Eggs = 1,
+  Unleaded.regular.gasoline = 1,
+  Electricity = 1,
+  Utility..gas.service = 1,
+  Day.care.and.preschool = 1,
+  College.tuition.and.fees = 1,
+  Educational.books.and.supplies = 1,
+  Parking.fees.and.tolls = 1,
+  Airline.fares = 1,
+  Motor.vehicle.insurance = 1,
+  Prescription.drugs = 533.551,
+  Nonprescription.drugs = 96.423,
+  Medical.equipment.and.supplies = 102.184,
+  Recorded.music.and.music.subscriptions = 1,
+  Cable.and.satellite.television.service = 1,
+  Rental.of.video.discs.and.other.media = 136.921,
+  Recreational.books = 1,
+  Outdoor.equipment.and.supplies = 1,
+  Indoor.plants.and.flowers = 1,
+  Household.cleaning.products = 126.653,
+  Rent.of.primary.residence = 1,
+  .before = 7
+)
+
+CPI_covid_data
+
+```
+```{R}
+
+month.vid <- months
+
+month.supp <- months
+
+month.med <- months
+
+month.pre <- months
+
+month.nonpre <- months
+
+for(i in 1:26)
+{
+  month.vid$prices[i] <- CPI_covid_data$Rental.of.video.discs.and.other.media[i]
+  month.supp$prices[i] <- CPI_covid_data$Household.cleaning.products[i]
+  month.med$prices[i] <- CPI_covid_data$Medical.equipment.and.supplies[i]
+  month.pre$prices[i] <- CPI_covid_data$Prescription.drugs[i]
+  month.nonpre$prices[i] <- CPI_covid_data$Nonprescription.drugs[i]
+}
+
+
+month.vid
+month.supp
+month.med
+month.pre
+month.nonpre
+
+#seperated all the prices by month into seperate dataframes for variables whose prices were most affected by case count
+```
+```{R}
+video_rentals_plot <- ggplot(month.vid, aes(x= monthname, y = prices, fill = monthcases)) + geom_bar(stat = "identity") +
+  scale_fill_gradient2(low = "white", high = "black", mid = "grey")
+  
+video_rentals_plot
+
+```
+
+```{R}
+cleansupp_plot <- ggplot(month.supp, aes(x= monthname, y = prices, fill = monthcases)) + geom_bar(stat = "identity") +
+  scale_fill_gradient2(low = "white", high = "black", mid = "grey")
+  
+cleansupp_plot
+
+
+
+
+```
+```{R}
+med_plot <- ggplot(month.med, aes(x= monthname, y = prices, fill = monthcases)) + geom_bar(stat = "identity") +
+  scale_fill_gradient2(low = "white", high = "black", mid = "grey")
+  
+med_plot
+
+
+
+
+```
+```{R}
+pres_plot <- ggplot(month.pre, aes(x= monthname, y = prices, fill = monthcases)) + geom_bar(stat = "identity") +
+  scale_fill_gradient2(low = "white", high = "black", mid = "grey")
+  
+pres_plot
+
+
+
+
+```
+```{R}
+nonpre_plot <- ggplot(month.nonpre, aes(x= monthname, y = prices, fill = monthcases)) + geom_bar(stat = "identity") +
+  scale_fill_gradient2(low = "white", high = "black", mid = "grey")
+  
+nonpre_plot
+
+
+
+
 ```
 
 
@@ -51,6 +331,7 @@ eggs <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Eggs, data = All_Data))
 bread <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Bread, data = All_Data))
 chicken <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Chicken, data = All_Data))
 food <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Chicken + Bread + Eggs, data = All_Data))
+
 
 ```
 
@@ -77,7 +358,7 @@ parking_fees <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Parking.fees.and.toll
 motor_insurance <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Motor.vehicle.insurance, data = All_Data))
 airline_fares <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Airline.fares, data = All_Data))
 transportation <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Airline.fares + Motor.vehicle.insurance + Parking.fees.and.tolls, data = All_Data))
-
+#transportation
 ```
 
 
@@ -86,6 +367,9 @@ prescription_drugs <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Prescription.dr
 nonprescription_drugs <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Nonprescription.drugs, data = All_Data))
 medical_supplies <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Medical.equipment.and.supplies, data = All_Data))
 medicine <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Medical.equipment.and.supplies + Nonprescription.drugs + Prescription.drugs, data = All_Data))
+
+#graph for prescription_durgs
+prescription_drugs_plot <- ggplot(aes(x = CPI_data$Prescription.drugs, y = Clean_Covid_Data$X7.Day.Avg.New.Cases.per.100K))+geom_histogram()
 
 ```
 
@@ -106,6 +390,7 @@ indoor_plants <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Indoor.plants.and.fl
 cleaning_supplies <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Household.cleaning.products, data = All_Data))
 rent <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Rent.of.primary.residence, data = All_Data))
 home <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Rent.of.primary.residence + Household.cleaning.products + Indoor.plants.and.flowers + Outdoor.equipment.and.supplies, data = All_Data))
+
 
 ```
 
