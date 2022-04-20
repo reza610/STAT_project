@@ -397,6 +397,13 @@ cleaning_supplies <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Household.cleani
 rent <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Rent.of.primary.residence, data = All_Data))
 home <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Rent.of.primary.residence + Household.cleaning.products + Indoor.plants.and.flowers + Outdoor.equipment.and.supplies, data = All_Data))
 
+```
 
+```{r}
+#Total CPI linear regression for US and India
+US_total <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ All.items, data = All_Data))
+#India_total <- 
+summary(lm(X7.Day.Avg.New.Cases.per.100K ~ India.All.items, data = All_Data))
+ 
 ```
 
