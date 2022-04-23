@@ -33,10 +33,12 @@ Clean_Covid_Data <- Clean_Covid_Data %>% mutate(Date = as.Date(Clean_Covid_Data$
 
 CPI_data <- CPI_data %>%  mutate(Date = as.Date(as.yearmon(CPI_data$Date, format = '%Y-%B')))
 
-Clean_Covid_Data
+#CPI_data
+
+#Clean_Covid_Data
 
 All_Data <- inner_join(CPI_data, Clean_Covid_Data)
-CPI_data
+
 nrow(CPI_data)
 
 ```
@@ -49,19 +51,22 @@ Clean_Covid_Data  %>% ggplot(aes(Date, X7.Day.Avg.New.Cases.per.100K)) + geom_li
 
 All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Educational.books.and.supplies)) + geom_point()
 
+CPI_data
 
-
-nrow(CPI_covid_data)
-CPI_covid_data
-Covid_data_endFeb
-#CPI_covid_data <- CPI_data %>% filter(Date > '2020-23-01')
+#Filtering the data between when covid first started until the FEB 2022
+#----------------------------------------------------------------------
+CPI_covid_data <- CPI_data %>% filter(Date > '2020-01-01')
 Covid_data_endFeb <- Clean_Covid_Data %>% filter(Date < '2022-02-26')
+#----------------------------------------------------------------------
+
+
 #tail(Covid_data_endFeb)
 #tail(CPI_covid_data)
 
 
-CPI_covid_data
-Covid_data_endFeb
+
+#CPI_covid_data
+#Covid_data_endFeb
 
 months <- as_tibble(c())
 months['monthname'] <- NA
@@ -74,9 +79,6 @@ mymonths <-c("2020JAN", "2020FEB", "2020MAR", "2020APR", "2020MAY", "2020JUN", "
 for(i in 1:26){
  months[i, ] <- NA
 }
-
-months
-
 for(i in 1:26){
   months$monthname[i] <- mymonths[i]
 }
@@ -85,6 +87,7 @@ for(i in 1:26){
 covmonthly <- as_tibble(c())
 
 Covid_data_endFeb
+
 
 Covid_data_endFeb$newcases <- 0
 
@@ -96,7 +99,7 @@ for(i in 2:767)
 }
 #create a new column which indicates new cases each day 
 
-Covid_data_endFeb
+
 
 ```
 
@@ -105,7 +108,7 @@ Covid_data_endFeb
 myvec <- c()
 
 
-myvec[1:26] <- 0
+#myvec[1:26] <- 0
 
 
 v <- 3
@@ -202,10 +205,12 @@ start <- start + 28
 
 months
 
-
+myvec
 for(i in 1:26){
   months$monthcases[i] <- myvec[i]
 }  
+months$monthcases[1] <- 0
+months$monthcases[2] <- 0
 
 months
 ```
@@ -214,34 +219,6 @@ months
 
 
 ```{R}
-CPI_covid_data <- dplyr::add_row(
-  CPI_covid_data,
-  Date = "2020-July",
-  Bread = 190.894,
-  Chicken = 1,
-  Eggs = 1,
-  Unleaded.regular.gasoline = 1,
-  Electricity = 1,
-  Utility..gas.service = 1,
-  Day.care.and.preschool = 1,
-  College.tuition.and.fees = 1,
-  Educational.books.and.supplies = 1,
-  Parking.fees.and.tolls = 1,
-  Airline.fares = 1,
-  Motor.vehicle.insurance = 1,
-  Prescription.drugs = 533.551,
-  Nonprescription.drugs = 96.423,
-  Medical.equipment.and.supplies = 102.184,
-  Recorded.music.and.music.subscriptions = 1,
-  Cable.and.satellite.television.service = 1,
-  Rental.of.video.discs.and.other.media = 136.921,
-  Recreational.books = 1,
-  Outdoor.equipment.and.supplies = 1,
-  Indoor.plants.and.flowers = 1,
-  Household.cleaning.products = 126.653,
-  Rent.of.primary.residence = 1,
-  .before = 7
-)
 
 CPI_covid_data
 
@@ -258,6 +235,10 @@ month.pre <- months
 
 month.nonpre <- months
 
+CPI_covid_data
+
+nrow(CPI_covid_data)
+
 for(i in 1:26)
 {
   month.vid$prices[i] <- CPI_covid_data$Rental.of.video.discs.and.other.media[i]
@@ -269,6 +250,7 @@ for(i in 1:26)
 
 
 month.vid
+nrow(month.vid)
 month.supp
 month.med
 month.pre
@@ -277,16 +259,15 @@ month.nonpre
 #seperated all the prices by month into seperate dataframes for variables whose prices were most affected by case count
 ```
 ```{R}
-video_rentals_plot <- ggplot(month.vid, aes(x= monthname, y = prices, fill = monthcases)) + geom_bar(stat = "identity") +
-  scale_fill_gradient2(low = "white", high = "black", mid = "grey")
+video_rentals_plot <- ggplot(month.vid, aes(x= monthname, y = sqrt(prices), fill = monthcases)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "black") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Video Rental and streaming companies prices vs covid cases", x = "Date", y = "Prices") 
   
 video_rentals_plot
 
 ```
 
 ```{R}
-cleansupp_plot <- ggplot(month.supp, aes(x= monthname, y = prices, fill = monthcases)) + geom_bar(stat = "identity") +
-  scale_fill_gradient2(low = "white", high = "black", mid = "grey")
+cleansupp_plot <- ggplot(month.supp, aes(x= monthname, y = sqrt(prices), fill = monthcases)) + geom_bar(stat = "identity") +
+scale_fill_gradient2(low = "white", high = "black", mid = "grey") + theme(axis.text.x = element_text(angle = 90))  + labs(title = "Prices of different cleaning supplies vs Covid cases", x = "Date", y = "Prices")
   
 cleansupp_plot
 
