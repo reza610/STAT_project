@@ -55,7 +55,7 @@ CPI_data
 
 #Filtering the data between when covid first started until the FEB 2022
 #----------------------------------------------------------------------
-CPI_covid_data <- CPI_data %>% filter(Date > '2020-01-01')
+CPI_covid_data <- CPI_data %>% filter(Date >= '2020-01-01')
 Covid_data_endFeb <- Clean_Covid_Data %>% filter(Date < '2022-02-26')
 #----------------------------------------------------------------------
 
