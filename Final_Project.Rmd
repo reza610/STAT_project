@@ -40,12 +40,13 @@ Finland_Covid_data <- World_Covid_data %>% filter(Country == "Finland") %>% rena
 Finland_Covid_data <- Finland_Covid_data %>% mutate(Date = as.Date(Finland_Covid_data$Date, format = "%Y-%m-%d")) 
 
 #filtering the urban areas and setting the dates to date variables
-urban_alaska <- Alaska_Covid_data %>% filter(Community == "Anchorage" | Community == "Fairbanks") %>% group_by(Date.Reported) %>% mutate(Total_Cases = sum(All.Cases)) %>% distinct(Date.Reported,.keep_all = TRUE)
-urban_alaska <- urban_alaska %>% mutate(Date.Reported = as.Date(urban_alaska$Date.Reported, format = "%m/%d/%Y")) 
+urban_alaska <- Alaska_Covid_data %>% filter(Community == "Anchorage" | Community == "Fairbanks") %>% group_by(Date.Reported) %>% mutate(Total_Cases = sum(All.Cases)) %>% distinct(Date.Reported,.keep_all = TRUE) %>% rename(Date=Date.Reported)
+urban_alaska$Date <- as.Date(urban_alaska$Date, format = "%m/%d/%Y") 
+head(urban_alaska)
 
 #setting the dates to date variable for the CPI data
 CPI_data <- CPI_data %>%  mutate(Date = as.Date(as.yearmon(CPI_data$Date, format = '%Y-%B')))
-Alaska_CPI <- Alaska_CPI %>% mutate(Date.Reported = as.Date(as.yearmon(Alaska_CPI$Date.Reported, format = '%Y-%B')))
+Alaska_CPI <- Alaska_CPI %>% mutate(Date = as.Date(as.yearmon(Alaska_CPI$Date, format = '%Y-%B')))
 Finland_CPI_data <- Finland_CPI_data %>%  mutate(Date = as.Date(as.yearmon(Finland_CPI_data$Date, format = '%y-%b')))
 
 #Combining Covid data and CPI data into a single dataframe for statistical analysis
@@ -53,8 +54,8 @@ Finland_data <- inner_join(Finland_CPI_data, Finland_Covid_data)
 Alaska_data <- inner_join(Alaska_CPI, urban_alaska)
 All_Data <- inner_join(CPI_data, Clean_Covid_Data)
 
-ggplot(Finland_data,aes(New_cases, Point.figure)) + geom_point()
-summary(lm(Point.figure ~ New_cases, data = Finland_data))
+ggplot(Alaska_data,aes(All.Cases, All.Items)) + geom_point()
+summary(lm(All.Items ~ All.Cases, data = Alaska_data))
 ```
 
 
@@ -395,9 +396,10 @@ home <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Rent.of.primary.residence + H
 ```
 
 ```{r}
-#Total CPI linear regression for US and India
+#Total CPI linear regression for US and Finland
 US_total <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ All.items, data = All_Data))
-India_total <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ India.All.items, data = All_Data))
+Alaska_Total <- summary(lm(All.Items ~ All.Cases, data = Alaska_data))
+Finland_Total <- summary(lm(Point.figure ~ New_cases, data = Finland_data))
  
 ```
 
