@@ -23,24 +23,38 @@ library(tibble)
 library(lubridate)
 CPI_data <- read.csv("CPI_data.csv")
 Covid_data <- read.csv("trends_in_covid19_cases_and_deaths_in_the_us_reported_to_cdc_by_population_factors.csv")
-
+Alaska_Covid_data <- read.csv("Alaska_data.csv")
+Alaska_CPI <- read.csv("CPI_Data_Alaska.csv")
+World_Covid_data <- read.csv("WHO-COVID-19-global-data.csv")
+Finland_CPI_data <- read.csv("Finland_CPI_data.csv")
 ```
 
 
 ```{r}
+#filtering the urban areas and setting the dates to date variables
 Clean_Covid_Data <- Covid_data %>% filter(Classification == "Metro_Rural") %>% filter(Category == 1)
 Clean_Covid_Data <- Clean_Covid_Data %>% mutate(Date = as.Date(Clean_Covid_Data$Date, format = "%m/%d/%Y")) 
 
+#filtering out Finland and setting the dates to date variables
+Finland_Covid_data <- World_Covid_data %>% filter(Country == "Finland") %>% rename(Date=ï..Date_reported) 
+Finland_Covid_data <- Finland_Covid_data %>% mutate(Date = as.Date(Finland_Covid_data$Date, format = "%Y-%m-%d")) 
+
+#filtering the urban areas and setting the dates to date variables
+urban_alaska <- Alaska_Covid_data %>% filter(Community == "Anchorage" | Community == "Fairbanks") %>% group_by(Date.Reported) %>% mutate(Total_Cases = sum(All.Cases)) %>% distinct(Date.Reported,.keep_all = TRUE)
+urban_alaska <- urban_alaska %>% mutate(Date.Reported = as.Date(urban_alaska$Date.Reported, format = "%m/%d/%Y")) 
+
+#setting the dates to date variable for the CPI data
 CPI_data <- CPI_data %>%  mutate(Date = as.Date(as.yearmon(CPI_data$Date, format = '%Y-%B')))
+Alaska_CPI <- Alaska_CPI %>% mutate(Date.Reported = as.Date(as.yearmon(Alaska_CPI$Date.Reported, format = '%Y-%B')))
+Finland_CPI_data <- Finland_CPI_data %>%  mutate(Date = as.Date(as.yearmon(Finland_CPI_data$Date, format = '%y-%b')))
 
-#CPI_data
-
-#Clean_Covid_Data
-
+#Combining Covid data and CPI data into a single dataframe for statistical analysis
+Finland_data <- inner_join(Finland_CPI_data, Finland_Covid_data)
+Alaska_data <- inner_join(Alaska_CPI, urban_alaska)
 All_Data <- inner_join(CPI_data, Clean_Covid_Data)
 
-nrow(CPI_data)
-
+ggplot(Finland_data,aes(New_cases, Point.figure)) + geom_point()
+summary(lm(Point.figure ~ New_cases, data = Finland_data))
 ```
 
 
