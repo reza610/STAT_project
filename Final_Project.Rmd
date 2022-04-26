@@ -54,8 +54,6 @@ Finland_data <- inner_join(Finland_CPI_data, Finland_Covid_data)
 Alaska_data <- inner_join(Alaska_CPI, urban_alaska)
 All_Data <- inner_join(CPI_data, Clean_Covid_Data)
 
-ggplot(Alaska_data,aes(All.Cases, All.Items)) + geom_point()
-summary(lm(All.Items ~ All.Cases, data = Alaska_data))
 ```
 
 
@@ -324,9 +322,9 @@ nonpre_plot
 
 ```{r}
 #the linear regression for food items
-eggs <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Eggs, data = All_Data))
-bread <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Bread, data = All_Data))
-chicken <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Chicken, data = All_Data))
+eggs <- summary(lm(Eggs ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+bread <- summary(lm(Bread ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+chicken <- summary(lm(Chicken ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 food <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Chicken + Bread + Eggs, data = All_Data))
 
 ```
@@ -378,7 +376,7 @@ prescription_drugs_plot <- ggplot(aes(x = CPI_data$Prescription.drugs, y = Clean
 #the linear regression for entertainment items
 music <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Recorded.music.and.music.subscriptions, data = All_Data))
 cable_tv <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Cable.and.satellite.television.service, data = All_Data))
-video_rentals <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Rental.of.video.discs.and.other.media, data = All_Data))
+video_rentals <- summary(lm(Rental.of.video.discs.and.other.media ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 books <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Recreational.books, data = All_Data))
 entertainment <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Recreational.books + Rental.of.video.discs.and.other.media + Cable.and.satellite.television.service + Recorded.music.and.music.subscriptions, data = All_Data))
 
@@ -401,5 +399,13 @@ US_total <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ All.items, data = All_Dat
 Alaska_Total <- summary(lm(All.Items ~ All.Cases, data = Alaska_data))
 Finland_Total <- summary(lm(Point.figure ~ New_cases, data = Finland_data))
  
+```
+
+Graphs
+```{r}
+#Video rental
+All_Data %>% ggplot(aes(Date, sqrt(Rental.of.video.discs.and.other.media), fill = X7.Day.Avg.New.Cases.per.100K)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "black") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Video Rental and streaming companies prices vs covid cases", x = "Date", y = "Prices") 
+
+All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Rental.of.video.discs.and.other.media)) + geom_point() + geom_abline(aes(intercept=137, slope = 4.443e-02))
 ```
 
