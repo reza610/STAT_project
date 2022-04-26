@@ -325,46 +325,49 @@ nonpre_plot
 eggs <- summary(lm(Eggs ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 bread <- summary(lm(Bread ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 chicken <- summary(lm(Chicken ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
-food <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Chicken + Bread + Eggs, data = All_Data))
+
+food <- summary(lm(Chicken + Bread + Eggs ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 
 ```
 
 
 ```{r}
 #the linear regression for energy
-gas <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Unleaded.regular.gasoline, data = All_Data))
-electricity <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Electricity, data = All_Data))
-natural_gas <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Utility..gas.service, data = All_Data))
-power <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Utility..gas.service + Electricity + Unleaded.regular.gasoline, data = All_Data))
+gas <- summary(lm(Unleaded.regular.gasoline ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+electricity <- summary(lm(Electricity ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+natural_gas <- summary(lm(Utility..gas.service ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+
+power <- summary(lm(Utility..gas.service + Electricity + Unleaded.regular.gasoline ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 
 ```
 
 
 ```{r}
 #the linear regression for education/child care
-day_care <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Day.care.and.preschool, data = All_Data))
-college_tuition <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ College.tuition.and.fees, data = All_Data))
-educational_supplies <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Educational.books.and.supplies, data = All_Data))
-education <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Educational.books.and.supplies + College.tuition.and.fees + Day.care.and.preschool, data = All_Data))
+day_care <- summary(lm(Day.care.and.preschool ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+college_tuition <- summary(lm(College.tuition.and.fees ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+educational_supplies <- summary(lm(Educational.books.and.supplies ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+
+education <- summary(lm(Educational.books.and.supplies + College.tuition.and.fees + Day.care.and.preschool ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 ```
 
 
 ```{r}
 #the linear regression for transportation items
-parking_fees <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Parking.fees.and.tolls, data = All_Data))
-motor_insurance <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Motor.vehicle.insurance, data = All_Data))
-airline_fares <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Airline.fares, data = All_Data))
-transportation <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Airline.fares + Motor.vehicle.insurance + Parking.fees.and.tolls, data = All_Data))
+parking_fees <- summary(lm(Parking.fees.and.tolls ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+motor_insurance <- summary(lm(Motor.vehicle.insurance ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+airline_fares <- summary(lm(Airline.fares ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+transportation <- summary(lm(Airline.fares + Motor.vehicle.insurance + Parking.fees.and.tolls ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 #transportation
 ```
 
 
 ```{r}
 #the linear regression for medical items items
-prescription_drugs <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Prescription.drugs, data = All_Data))
-nonprescription_drugs <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Nonprescription.drugs, data = All_Data))
-medical_supplies <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Medical.equipment.and.supplies, data = All_Data))
-medicine <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Medical.equipment.and.supplies + Nonprescription.drugs + Prescription.drugs, data = All_Data))
+prescription_drugs <- summary(lm(Prescription.drugs ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+nonprescription_drugs <- summary(lm(Nonprescription.drugs ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+medical_supplies <- summary(lm(Medical.equipment.and.supplies  ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+medicine <- summary(lm(Medical.equipment.and.supplies + Nonprescription.drugs + Prescription.drugs ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 
 #graph for prescription_durgs
 prescription_drugs_plot <- ggplot(aes(x = CPI_data$Prescription.drugs, y = Clean_Covid_Data$X7.Day.Avg.New.Cases.per.100K))+geom_histogram()
@@ -374,28 +377,28 @@ prescription_drugs_plot <- ggplot(aes(x = CPI_data$Prescription.drugs, y = Clean
 
 ```{r}
 #the linear regression for entertainment items
-music <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Recorded.music.and.music.subscriptions, data = All_Data))
-cable_tv <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Cable.and.satellite.television.service, data = All_Data))
+music <- summary(lm(Recorded.music.and.music.subscriptions ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+cable_tv <- summary(lm(Cable.and.satellite.television.service ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 video_rentals <- summary(lm(Rental.of.video.discs.and.other.media ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
-books <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Recreational.books, data = All_Data))
-entertainment <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Recreational.books + Rental.of.video.discs.and.other.media + Cable.and.satellite.television.service + Recorded.music.and.music.subscriptions, data = All_Data))
+books <- summary(lm(Recreational.books ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+entertainment <- summary(lm(Recreational.books + Rental.of.video.discs.and.other.media + Cable.and.satellite.television.service + Recorded.music.and.music.subscriptions ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 
 ```
 
 
 ```{r}
 #the linear regression for general home items
-outdoor_equipment <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Outdoor.equipment.and.supplies, data = All_Data))
-indoor_plants <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Indoor.plants.and.flowers, data = All_Data))
-cleaning_supplies <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Household.cleaning.products, data = All_Data))
-rent <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Rent.of.primary.residence, data = All_Data))
-home <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ Rent.of.primary.residence + Household.cleaning.products + Indoor.plants.and.flowers + Outdoor.equipment.and.supplies, data = All_Data))
+outdoor_equipment <- summary(lm(Outdoor.equipment.and.supplies ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+indoor_plants <- summary(lm(Indoor.plants.and.flowers ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+cleaning_supplies <- summary(lm(Household.cleaning.products ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+rent <- summary(lm(Rent.of.primary.residence ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
+home <- summary(lm(Rent.of.primary.residence + Household.cleaning.products + Indoor.plants.and.flowers + Outdoor.equipment.and.supplies ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 
 ```
 
 ```{r}
-#Total CPI linear regression for US and Finland
-US_total <- summary(lm(X7.Day.Avg.New.Cases.per.100K ~ All.items, data = All_Data))
+#Total CPI linear regression for US, Alaska, and Finland
+US_total <- summary(lm(All.items ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 Alaska_Total <- summary(lm(All.Items ~ All.Cases, data = Alaska_data))
 Finland_Total <- summary(lm(Point.figure ~ New_cases, data = Finland_data))
  
