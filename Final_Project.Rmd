@@ -319,9 +319,8 @@ nonpre_plot
 
 ```
 
-
+the linear regression for food items
 ```{r}
-#the linear regression for food items
 eggs <- summary(lm(Eggs ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 bread <- summary(lm(Bread ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 chicken <- summary(lm(Chicken ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
@@ -330,9 +329,8 @@ food <- summary(lm(Chicken + Bread + Eggs ~ X7.Day.Avg.New.Cases.per.100K, data 
 
 ```
 
-
+the linear regression for energy
 ```{r}
-#the linear regression for energy
 gas <- summary(lm(Unleaded.regular.gasoline ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 electricity <- summary(lm(Electricity ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 natural_gas <- summary(lm(Utility..gas.service ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
@@ -341,9 +339,8 @@ power <- summary(lm(Utility..gas.service + Electricity + Unleaded.regular.gasoli
 
 ```
 
-
+the linear regression for education/child care
 ```{r}
-#the linear regression for education/child care
 day_care <- summary(lm(Day.care.and.preschool ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 college_tuition <- summary(lm(College.tuition.and.fees ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 educational_supplies <- summary(lm(Educational.books.and.supplies ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
@@ -351,9 +348,8 @@ educational_supplies <- summary(lm(Educational.books.and.supplies ~ X7.Day.Avg.N
 education <- summary(lm(Educational.books.and.supplies + College.tuition.and.fees + Day.care.and.preschool ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 ```
 
-
+the linear regression for transportation items
 ```{r}
-#the linear regression for transportation items
 parking_fees <- summary(lm(Parking.fees.and.tolls ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 motor_insurance <- summary(lm(Motor.vehicle.insurance ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 airline_fares <- summary(lm(Airline.fares ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
@@ -361,9 +357,8 @@ transportation <- summary(lm(Airline.fares + Motor.vehicle.insurance + Parking.f
 #transportation
 ```
 
-
+the linear regression for medical items items
 ```{r}
-#the linear regression for medical items items
 prescription_drugs <- summary(lm(Prescription.drugs ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 nonprescription_drugs <- summary(lm(Nonprescription.drugs ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 medical_supplies <- summary(lm(Medical.equipment.and.supplies  ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
@@ -374,9 +369,8 @@ prescription_drugs_plot <- ggplot(aes(x = CPI_data$Prescription.drugs, y = Clean
 
 ```
 
-
+the linear regression for entertainment items
 ```{r}
-#the linear regression for entertainment items
 music <- summary(lm(Recorded.music.and.music.subscriptions ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 cable_tv <- summary(lm(Cable.and.satellite.television.service ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 video_rentals <- summary(lm(Rental.of.video.discs.and.other.media ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
@@ -385,9 +379,8 @@ entertainment <- summary(lm(Recreational.books + Rental.of.video.discs.and.other
 
 ```
 
-
+the linear regression for general home items
 ```{r}
-#the linear regression for general home items
 outdoor_equipment <- summary(lm(Outdoor.equipment.and.supplies ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 indoor_plants <- summary(lm(Indoor.plants.and.flowers ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 cleaning_supplies <- summary(lm(Household.cleaning.products ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
@@ -396,8 +389,8 @@ home <- summary(lm(Rent.of.primary.residence + Household.cleaning.products + Ind
 
 ```
 
+Total CPI linear regression for US, Alaska, and Finland
 ```{r}
-#Total CPI linear regression for US, Alaska, and Finland
 US_total <- summary(lm(All.items ~ X7.Day.Avg.New.Cases.per.100K, data = All_Data))
 Alaska_Total <- summary(lm(All.Items ~ All.Cases, data = Alaska_data))
 Finland_Total <- summary(lm(Point.figure ~ New_cases, data = Finland_data))
@@ -430,7 +423,6 @@ All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Prescription.drugs)) + ge
 All_Data %>% ggplot(aes(Date, sqrt(Recorded.music.and.music.subscriptions), fill = X7.Day.Avg.New.Cases.per.100K)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "black") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Video Rental and streaming companies prices vs covid cases", x = "Date", y = "Prices") 
 
 All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Recorded.music.and.music.subscriptions)) + geom_point() + geom_abline(aes(intercept=7.97e+01, slope = -2.43e-03))
-
 
 #US total
 
