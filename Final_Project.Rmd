@@ -409,6 +409,11 @@ All_Data %>% ggplot(aes(Date, sqrt(Household.cleaning.products), fill = X7.Day.A
 
 All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Household.cleaning.products)) + geom_point() + geom_abline(aes(intercept=124.58675, slope = 0.07743))
 
+#Rent
+All_Data %>% ggplot(aes(Date, sqrt(Rent.of.primary.residence), fill = X7.Day.Avg.New.Cases.per.100K)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Rent Prices Over Time", x = "Date", y = "Prices", fill = "7 Day New Case Average") 
+
+All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Rent.of.primary.residence)) + geom_point() + geom_abline(aes(intercept=3.43e+02, slope = 1.18e-01))
+
 #Nonprescription Drugs
 All_Data %>% ggplot(aes(Date, sqrt(Nonprescription.drugs), fill = X7.Day.Avg.New.Cases.per.100K)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Nonprescription Drug Prices Over Time", x = "Date", y = "Prices", fill = "7 Day New Case Average") 
 
