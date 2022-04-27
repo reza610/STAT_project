@@ -400,51 +400,51 @@ Finland_Total <- summary(lm(Point.figure ~ New_cases, data = Finland_data))
 Graphs
 ```{r}
 #Video rental
-All_Data %>% ggplot(aes(Date, sqrt(Rental.of.video.discs.and.other.media), fill = X7.Day.Avg.New.Cases.per.100K)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Video Rental and Streaming Prices Over Time", x = "Date", y = "Prices", fill = "7 Day New Case Average") 
+All_Data %>% ggplot(aes(Date, sqrt(Rental.of.video.discs.and.other.media), fill = X7.Day.Avg.New.Cases.per.100K)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Video Rental and Streaming Prices Over Time", x = "Date", y = "CPI", fill = "7 Day New Case Average") 
 
-All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Rental.of.video.discs.and.other.media)) + geom_point() + geom_abline(aes(intercept=1.370e+02, slope = 4.443e-02)) + labs(title = "Video Rental and Streaming Prices vs New Cases", x = "7 Day New Case Average", y = "Prices")
+All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Rental.of.video.discs.and.other.media)) + geom_point() + geom_abline(aes(intercept=1.370e+02, slope = 4.443e-02)) + labs(title = "Video Rental and Streaming Prices vs New Cases", x = "7 Day New Case Average", y = "CPI")
 
 #Cleaning Products
-All_Data %>% ggplot(aes(Date, sqrt(Household.cleaning.products), fill = X7.Day.Avg.New.Cases.per.100K)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Cleaning Product Prices Over Time", x = "Date", y = "Prices", fill = "7 Day New Case Average") 
+All_Data %>% ggplot(aes(Date, sqrt(Household.cleaning.products), fill = X7.Day.Avg.New.Cases.per.100K)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Cleaning Product Prices Over Time", x = "Date", y = "CPI", fill = "7 Day New Case Average") 
 
-All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Household.cleaning.products)) + geom_point() + geom_abline(aes(intercept=124.58675, slope = 0.07743)) + labs(title = "Cleaning Product Prices vs New Cases", x = "7 Day New Case Average", y = "Prices")
+All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Household.cleaning.products)) + geom_point() + geom_abline(aes(intercept=124.58675, slope = 0.07743)) + labs(title = "Cleaning Product Prices vs New Cases", x = "7 Day New Case Average", y = "CPI")
 
 #Rent
-All_Data %>% ggplot(aes(Date, sqrt(Rent.of.primary.residence), fill = X7.Day.Avg.New.Cases.per.100K)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Rent Prices Over Time", x = "Date", y = "Prices", fill = "7 Day New Case Average") 
+All_Data %>% ggplot(aes(Date, sqrt(Rent.of.primary.residence), fill = X7.Day.Avg.New.Cases.per.100K)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Rent Prices Over Time", x = "Date", y = "CPI", fill = "7 Day New Case Average") 
 
-All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Rent.of.primary.residence)) + geom_point() + geom_abline(aes(intercept=3.43e+02, slope = 1.18e-01)) + labs(title = "Rent Prices Over Time vs New Cases", x = "7 Day New Case Average", y = "Prices")
+All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Rent.of.primary.residence)) + geom_point() + geom_abline(aes(intercept=3.43e+02, slope = 1.18e-01)) + labs(title = "Rent Prices Over Time vs New Cases", x = "7 Day New Case Average", y = "CPI")
 
 #Nonprescription Drugs
-All_Data %>% ggplot(aes(Date, sqrt(Nonprescription.drugs), fill = X7.Day.Avg.New.Cases.per.100K)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Nonprescription Drug Prices Over Time", x = "Date", y = "Prices", fill = "7 Day New Case Average") 
+All_Data %>% ggplot(aes(Date, sqrt(Nonprescription.drugs), fill = X7.Day.Avg.New.Cases.per.100K)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Nonprescription Drug Prices Over Time", x = "Date", y = "CPI", fill = "7 Day New Case Average") 
 
-All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Nonprescription.drugs)) + geom_point() + geom_abline(aes(intercept=96.2208276, slope = -0.0002892)) + labs(title = "Nonprescription Drug Prices vs New Cases", x = "7 Day New Case Average", y = "Prices")
+All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Nonprescription.drugs)) + geom_point() + geom_abline(aes(intercept=96.2208276, slope = -0.0002892)) + labs(title = "Nonprescription Drug Prices vs New Cases", x = "7 Day New Case Average", y = "CPI")
 
 #Prescription Drugs
-All_Data %>% ggplot(aes(Date, sqrt(Prescription.drugs), fill = X7.Day.Avg.New.Cases.per.100K)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Prescription Drug Prices Over Time", x = "Date", y = "Prices", fill = "7 Day New Case Average") 
+All_Data %>% ggplot(aes(Date, sqrt(Prescription.drugs), fill = X7.Day.Avg.New.Cases.per.100K)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Prescription Drug Prices Over Time", x = "Date", y = "CPI", fill = "7 Day New Case Average") 
 
-All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Prescription.drugs)) + geom_point() + geom_abline(aes(intercept=526.89029, slope = 1.22e-02)) + labs(title = "Prescription Drug Prices vs New Cases", x = "7 Day New Case Average", y = "Prices")
+All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Prescription.drugs)) + geom_point() + geom_abline(aes(intercept=526.89029, slope = 1.22e-02)) + labs(title = "Prescription Drug Prices vs New Cases", x = "7 Day New Case Average", y = "CPI")
 
 #Music
-All_Data %>% ggplot(aes(Date, sqrt(Recorded.music.and.music.subscriptions), fill = X7.Day.Avg.New.Cases.per.100K)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Physical and Digital Music Prices Over Time", x = "Date", y = "Prices", fill = "7 Day New Case Average") 
+All_Data %>% ggplot(aes(Date, sqrt(Recorded.music.and.music.subscriptions), fill = X7.Day.Avg.New.Cases.per.100K)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Physical and Digital Music Prices Over Time", x = "Date", y = "CPI", fill = "7 Day New Case Average") 
 
-All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Recorded.music.and.music.subscriptions)) + geom_point() + geom_abline(aes(intercept=7.97e+01, slope = -2.43e-03)) + labs(title = "Physical and Digital Music Prices vs New Cases", x = "7 Day New Case Average", y = "Prices")
+All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, Recorded.music.and.music.subscriptions)) + geom_point() + geom_abline(aes(intercept=7.97e+01, slope = -2.43e-03)) + labs(title = "Physical and Digital Music Prices vs New Cases", x = "7 Day New Case Average", y = "CPI")
 
 #US total
-All_Data %>% ggplot(aes(Date, sqrt(All.items), fill = X7.Day.Avg.New.Cases.per.100K)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Prices in the United States Over Time", x = "Date", y = "Prices", fill = "7 Day New Case Average") 
+All_Data %>% ggplot(aes(Date, sqrt(All.items), fill = X7.Day.Avg.New.Cases.per.100K)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Prices in the United States Over Time", x = "Date", y = "CPI", fill = "7 Day New Case Average") 
 
-All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, All.items)) + geom_point() + geom_abline(aes(intercept=2.62e+02, slope = 1.47e-01)) + labs(title = "Prices in the United States vs New Cases", x = "New Cases", y = "Prices")
+All_Data %>% ggplot(aes(X7.Day.Avg.New.Cases.per.100K, All.items)) + geom_point() + geom_abline(aes(intercept=2.62e+02, slope = 1.47e-01)) + labs(title = "Prices in the United States vs New Cases", x = "New Cases", y = "CPI")
 
 
 #Alaska total
-Alaska_data %>% ggplot(aes(Date, sqrt(All.Items), fill = Total_Cases)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Prices in Alaska Over Time", x = "Date", y = "Prices", fill = "New Cases") 
+Alaska_data %>% ggplot(aes(Date, sqrt(All.Items), fill = Total_Cases)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Prices in Alaska Over Time", x = "Date", y = "CPI", fill = "New Cases") 
 
-Alaska_data %>% ggplot(aes(Total_Cases, All.Items)) + geom_point() + geom_abline(aes(intercept=2.3e+02, slope = 2.93e-02)) + labs(title = "Prices in Alaska vs New Cases", x = "New Cases", y = "Prices")
+Alaska_data %>% ggplot(aes(Total_Cases, All.Items)) + geom_point() + geom_abline(aes(intercept=2.3e+02, slope = 2.93e-02)) + labs(title = "Prices in Alaska vs New Cases", x = "New Cases", y = "CPI")
 
 
 #Finland total
-Finland_data %>% ggplot(aes(Date, sqrt(Point.figure), fill = New_cases)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Prices in Finland Over Time", x = "Date", y = "Prices", fill = "New Cases") 
+Finland_data %>% ggplot(aes(Date, sqrt(Point.figure), fill = New_cases)) + geom_bar(stat = "identity") + scale_fill_gradient2(low = "white", high = "red") + theme(axis.text.x = element_text(angle = 90)) + labs(title = "Prices in Finland Over Time", x = "Date", y = "CPI", fill = "New Cases") 
 
-Finland_data %>% ggplot(aes(New_cases, Point.figure)) + geom_point() + geom_abline(aes(intercept=1.05e+02, slope = 6.57e-04)) + labs(title = "Prices in Finland vs New Cases", x = "New Cases", y = "Prices")
+Finland_data %>% ggplot(aes(New_cases, Point.figure)) + geom_point() + geom_abline(aes(intercept=1.05e+02, slope = 6.57e-04)) + labs(title = "Prices in Finland vs New Cases", x = "New Cases", y = "CPI")
 
 ```
 
